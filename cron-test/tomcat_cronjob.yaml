@@ -16,5 +16,5 @@ spec:
             - -c
             - |
               # スクリプトを実行する
-              bash C:\Users\ryota\OneDrive\デスクトップ\apachetomcat\cronjob\cronjob.sh
+              bash cron-test/cronjob.sh
           restartPolicy: OnFailure
