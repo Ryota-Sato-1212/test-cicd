@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: update-tomcat-image
+  name: tomcat-image-update
 spec:
   schedule: "*/5 * * * *"  # 5分に一回実行
   jobTemplate:
@@ -9,20 +9,12 @@ spec:
       template:
         spec:
           containers:
-          - name: updater
-            image: bitnami/kubectl:latest
+          - name: kubectl
+            image: bitnami/kubectl:latest  # kubectl を実行するコンテナイメージ
             command:
-            - /bin/sh
-            - -c
-            - |
-              # ConfigMapからスクリプトを取得して実行する
-              script=$(cat /etc/cronjob-scripts/cronjob.sh)
-              eval "$script"
+            - "kubectl"
+            - "set"
+            - "image"
+            - "deployment/tomcat-deployment"
+            - "tomcat=tomcat:10.0"  # 更新したいイメージとバージョンを指定
           restartPolicy: OnFailure
-          volumes:
-          - name: cronjob-scripts-volume
-            configMap:
-              name: cronjob-scripts
-              items:
-              - key: cronjob.sh
-                path: cronjob.sh
