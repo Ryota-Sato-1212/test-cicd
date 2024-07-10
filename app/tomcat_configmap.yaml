@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tomcat-config
+  
+data:
+  server.xml: |
+    <Server port="8005" shutdown="SHUTDOWN">
+        <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+        <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+        ...
+    </Server>
+  context.xml: |
+    <Context>
+        <Resource name="jdbc/myDB"
+                  auth="Container"
+                  type="javax.sql.DataSource"
+                  maxTotal="100"
+                  maxIdle="30"
+                  maxWaitMillis="10000"
+                  username="user"
+                  password="password"
+                  driverClassName="com.mysql.jdbc.Driver"
+                  url="jdbc:mysql://localhost:3306/mydb"/>
+    </Context>
