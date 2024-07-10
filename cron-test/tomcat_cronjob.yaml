@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: update-tomcat-image
+spec:
+  schedule: "*/5 * * * *"  # 5分に一回実行
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: updater
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - |
+              # スクリプトを実行する
+              bash C:\Users\ryota\OneDrive\デスクトップ\apachetomcat\cronjob\cronjob.sh
+          restartPolicy: OnFailure
