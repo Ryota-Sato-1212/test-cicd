@@ -15,6 +15,14 @@ spec:
             - /bin/sh
             - -c
             - |
-              # スクリプトを実行する
-              bash cron-test/cronjob.sh
+              # ConfigMapからスクリプトを取得して実行する
+              script=$(cat /etc/cronjob-scripts/cronjob.sh)
+              eval "$script"
           restartPolicy: OnFailure
+          volumes:
+          - name: cronjob-scripts-volume
+            configMap:
+              name: cronjob-scripts
+              items:
+              - key: cronjob.sh
+                path: cronjob.sh
