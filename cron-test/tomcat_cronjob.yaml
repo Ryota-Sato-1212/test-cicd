@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: tomcat-image-update
 spec:
-  schedule: "*/5 * * * *"  # 5分に一回実行
+  schedule: "*/1 * * * *"  # 1分に一回実行
   jobTemplate:
     spec:
       template:
