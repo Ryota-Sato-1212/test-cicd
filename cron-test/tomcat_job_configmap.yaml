@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cronjob-scripts
-data:
-  cronjob.sh: |
-    #!/bin/bash
-    kubectl set image deployment/tomcat-deployment tomcat=tomcat:10.0
